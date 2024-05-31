@@ -175,7 +175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Create room
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -556,9 +556,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 898228248}
   - {fileID: 661016492}
   - {fileID: 1749117915}
-  - {fileID: 898228248}
   - {fileID: 1660029834}
   m_Father: {fileID: 675729717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -831,8 +831,9 @@ GameObject:
   - component: {fileID: 661016495}
   - component: {fileID: 661016494}
   - component: {fileID: 661016493}
+  - component: {fileID: 661016496}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CreateRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -901,7 +902,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 661016494}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 661016496}
+        m_TargetAssemblyTypeName: ConnectionManager, Assembly-CSharp
+        m_MethodName: OnCreatedRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &661016494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,6 +953,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661016491}
   m_CullTransparentMesh: 1
+--- !u!114 &661016496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661016491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c491b8bd5f6562849ba3134fa6141360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonsMainMenu: []
+  debugPhoton: {fileID: 1891735538}
 --- !u!1 &675729716
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,6 +999,7 @@ RectTransform:
   m_Children:
   - {fileID: 260456587}
   - {fileID: 355535063}
+  - {fileID: 1891735537}
   m_Father: {fileID: 1372638249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1078,8 +1106,9 @@ GameObject:
   - component: {fileID: 898228251}
   - component: {fileID: 898228250}
   - component: {fileID: 898228249}
+  - component: {fileID: 898228252}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: JoinLobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1148,7 +1177,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 898228250}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 898228252}
+        m_TargetAssemblyTypeName: ConnectionManager, Assembly-CSharp
+        m_MethodName: OnJoinedLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &898228250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,6 +1228,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898228247}
   m_CullTransparentMesh: 1
+--- !u!114 &898228252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898228247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c491b8bd5f6562849ba3134fa6141360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonsMainMenu: []
+  debugPhoton: {fileID: 1891735538}
 --- !u!1 &1341773861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,9 +1272,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonsMainMenu:
+  - {fileID: 898228249}
   - {fileID: 661016493}
   - {fileID: 1749117916}
-  - {fileID: 898228249}
   - {fileID: 1660029835}
   debugPhoton: {fileID: 1891735538}
 --- !u!4 &1341773863
@@ -1332,7 +1387,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 675729717}
-  - {fileID: 1891735537}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1596,7 +1650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Join lobby
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1808,7 +1862,7 @@ GameObject:
   - component: {fileID: 1891735539}
   - component: {fileID: 1891735538}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: StatusConnection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1821,12 +1875,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891735536}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1372638249}
+  m_Father: {fileID: 675729717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

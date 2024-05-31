@@ -16,11 +16,16 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+
+        for (int i = 1; i < ButtonsMainMenu.Length; i++) 
+        {
+            ButtonsMainMenu[i].enabled = false;
+        }
     }
 
     public override void OnConnectedToMaster()
     {
-        debugPhoton.text = "We succefully connected to photon";
+        Debug.Log("We succefully connected to photon");
         base.OnConnectedToMaster();
     }
 
@@ -29,17 +34,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
-    public void CreateRoom()
-    {
-        PhotonNetwork.CreateRoom("MyRoom");
-    }
-
-    public override void OnCreatedRoom()
-    {
-        base.OnCreatedRoom();
-        debugPhoton.text = "Room created successfully!";
-    }
-
+    //To join the lobby
     public void JoinLobby()
     {
         PhotonNetwork.JoinLobby(new TypedLobby(LobbyDefultName, LobbyType.Default));
@@ -48,7 +43,19 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
-        debugPhoton.text = $"We successfully joined the lobby {PhotonNetwork.CurrentLobby}!";
+        Debug.Log($"We successfully joined the lobby {PhotonNetwork.CurrentLobby}!");
+    }
+
+    //To join a room
+    public void CreateRoom()
+    {
+        PhotonNetwork.CreateRoom("MyRoom");
+    }
+
+    public override void OnCreatedRoom()
+    {
+        base.OnCreatedRoom();
+        Debug.Log("Room created successfully!");
     }
 
     public void JoinRandomRoom()
@@ -59,7 +66,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        debugPhoton.text = "We successfully joined the room " + PhotonNetwork.CurrentRoom;
+        Debug.Log("We successfully joined the room " + PhotonNetwork.CurrentRoom);
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -71,8 +78,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void Update()
+    public void Update()
     {
-        Debug.Log(PhotonNetwork.NetworkClientState);
+        debugPhoton.text = PhotonNetwork.NetworkClientState.ToString();
     }
 }
