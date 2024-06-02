@@ -7,17 +7,20 @@ using UnityEngine.UI;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
-    [SerializeField] Button[] ButtonsMainMenu;
+    [SerializeField] private Button[] ButtonsMainMenu;
+
+    [SerializeField] private TextMeshProUGUI LobbyWanted;
     [SerializeField] private TextMeshProUGUI debugPhoton;
 
-    private const string LobbyDefultName = "OurFirstLobby";
+    private const string LobbyDefultName = "Our First Lobby";
+    private const string LobbySecondName = "Our Second Lobby";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
 
-        for (int i = 1; i < ButtonsMainMenu.Length; i++) 
+        for (int i = 0; i < ButtonsMainMenu.Length; i++) 
         {
             ButtonsMainMenu[i].enabled = false;
         }
@@ -27,6 +30,11 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("We succefully connected to photon");
         base.OnConnectedToMaster();
+
+        if (ButtonsMainMenu.Length > 0)
+        {
+            ButtonsMainMenu[0].enabled = true;
+        }
     }
 
     public void Connect()
@@ -38,6 +46,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     public void JoinLobby()
     {
         PhotonNetwork.JoinLobby(new TypedLobby(LobbyDefultName, LobbyType.Default));
+
+        PhotonNetwork.JoinLobby(new TypedLobby(LobbySecondName, LobbyType.Default));
     }
 
     public override void OnJoinedLobby()
