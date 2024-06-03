@@ -1144,6 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonsMainMenu: []
+  LobbyWanted: {fileID: 0}
   debugPhoton: {fileID: 1891735538}
 --- !u!1 &675729716
 GameObject:
@@ -1495,6 +1496,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 898228252}
         m_TargetAssemblyTypeName: ConnectionManager, Assembly-CSharp
+        m_MethodName: JoinLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 898228252}
+        m_TargetAssemblyTypeName: ConnectionManager, Assembly-CSharp
         m_MethodName: OnJoinedLobby
         m_Mode: 1
         m_Arguments:
@@ -1556,6 +1569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonsMainMenu: []
+  LobbyWanted: {fileID: 358053036}
   debugPhoton: {fileID: 1891735538}
 --- !u!1 &1294127164
 GameObject:
@@ -1635,7 +1649,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter text...
+  m_text: Defult lobby...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1748,6 +1762,7 @@ MonoBehaviour:
   - {fileID: 661016493}
   - {fileID: 1749117916}
   - {fileID: 1660029835}
+  LobbyWanted: {fileID: 358053036}
   debugPhoton: {fileID: 1891735538}
 --- !u!4 &1341773863
 Transform:

@@ -4,12 +4,14 @@ using TMPro;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+using UnityEditor.UI;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Button[] ButtonsMainMenu;
 
-    [SerializeField] private TextMeshProUGUI LobbyWanted;
+    [SerializeField] private TMP_InputField LobbyWanted;
     [SerializeField] private TextMeshProUGUI debugPhoton;
 
     private const string LobbyDefultName = "Our First Lobby";
@@ -45,15 +47,25 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     //To join the lobby
     public void JoinLobby()
     {
-        PhotonNetwork.JoinLobby(new TypedLobby(LobbyDefultName, LobbyType.Default));
+        Debug.Log($"LobbyDefultName: {LobbyDefultName}, LobbySecondName: {LobbySecondName}, LobbyWanted.text: {LobbyWanted.text}");
 
-        PhotonNetwork.JoinLobby(new TypedLobby(LobbySecondName, LobbyType.Default));
+        if (LobbySecondName == LobbyWanted.text)
+        {
+            Debug.Log("Joining LobbySecondName...");
+            PhotonNetwork.JoinLobby(new TypedLobby(LobbySecondName, LobbyType.Default));
+        }
+
+        else
+        {
+            Debug.Log("Joining LobbyDefultName...");
+            PhotonNetwork.JoinLobby(new TypedLobby(LobbyDefultName, LobbyType.Default));
+        }
     }
 
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
-        Debug.Log($"We successfully joined the lobby {PhotonNetwork.CurrentLobby}!");
+        Debug.Log($"We successfully joined the lobby {PhotonNetwork.CurrentLobby.Name}!");
     }
 
     //To join a room
