@@ -17,20 +17,23 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     private const string LobbyDefultName = "Our First Lobby";
     private const string LobbySecondName = "Our Second Lobby";
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        PhotonNetwork.ConnectUsingSettings();
-
-        for (int i = 0; i < ButtonsMainMenu.Length; i++) 
+        for (int i = 0; i < ButtonsMainMenu.Length; i++)
         {
             ButtonsMainMenu[i].enabled = false;
 
-            if(i != 0 && i < ButtonsMainMenu.Length)
+            if (i != 0 && i < ButtonsMainMenu.Length)
             {
                 ButtonsMainMenu[i].gameObject.SetActive(false);
             }
         }
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        PhotonNetwork.ConnectUsingSettings();
     }
 
     public override void OnConnectedToMaster()
