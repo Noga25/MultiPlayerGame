@@ -30,7 +30,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -74,6 +73,21 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         Debug.Log($"We successfully joined the lobby {PhotonNetwork.CurrentLobby.Name}!");
+        ActiveRooms();
+    }
+
+    public void ActiveRooms()
+    {
+
+        for (int i = 0; i < ButtonsMainMenu.Length; i++)
+        {
+            ButtonsMainMenu[i].enabled = true;
+
+            if (i != 0 && i < ButtonsMainMenu.Length)
+            {
+                ButtonsMainMenu[i].gameObject.SetActive(true);
+            }
+        }
     }
 
     //To join a room
