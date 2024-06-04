@@ -25,6 +25,11 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < ButtonsMainMenu.Length; i++) 
         {
             ButtonsMainMenu[i].enabled = false;
+
+            if(i != 0 && i < ButtonsMainMenu.Length)
+            {
+                ButtonsMainMenu[i].gameObject.SetActive(false);
+            }
         }
     }
 
