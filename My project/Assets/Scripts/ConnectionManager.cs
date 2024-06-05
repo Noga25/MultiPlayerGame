@@ -78,14 +78,31 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
     public void ActiveRooms()
     {
-
-        for (int i = 0; i < ButtonsMainMenu.Length; i++)
+        if (LobbySecondName == LobbyWanted.text)
         {
-            ButtonsMainMenu[i].enabled = true;
-
-            if (i != 0 && i < ButtonsMainMenu.Length)
+            for (int i = 1; i < ButtonsMainMenu.Length; i++)
             {
-                ButtonsMainMenu[i].gameObject.SetActive(true);
+                ButtonsMainMenu[i].enabled = true;
+                ButtonsMainMenu[0].enabled = false;
+
+                if (i != 2 && i != 5 && i < ButtonsMainMenu.Length)
+                {
+                    ButtonsMainMenu[i].gameObject.SetActive(true);
+                }
+            }
+        }
+
+        else
+        {
+            for (int i = 1; i < ButtonsMainMenu.Length; i++)
+            {
+                ButtonsMainMenu[i].enabled = true;
+                ButtonsMainMenu[0].enabled = false;
+
+                if (i != 1 && i != 4 && i < ButtonsMainMenu.Length)
+                {
+                    ButtonsMainMenu[i].gameObject.SetActive(true);
+                }
             }
         }
     }
