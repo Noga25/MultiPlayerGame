@@ -2157,6 +2157,8 @@ MonoBehaviour:
   - {fileID: 661016493}
   - {fileID: 1749117916}
   - {fileID: 1660029835}
+  - {fileID: 82932149}
+  - {fileID: 1889209282}
   LobbyWanted: {fileID: 358053036}
   debugPhoton: {fileID: 1891735538}
 --- !u!4 &1341773863
