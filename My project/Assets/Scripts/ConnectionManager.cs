@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEditor.UI;
+using Photon.Pun.UtilityScripts;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
@@ -17,7 +18,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     private const string LobbyDefultName = "Our First Lobby";
     private const string LobbySecondName = "Our Second Lobby";
 
-    private void Awake()
+    private void InitialButtons()
     {
         for (int i = 0; i < ButtonsMainMenu.Length; i++)
         {
@@ -28,6 +29,11 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
                 ButtonsMainMenu[i].gameObject.SetActive(false);
             }
         }
+    }
+
+    private void Awake()
+    {
+        InitialButtons();
     }
 
     void Start()
@@ -108,9 +114,22 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
 
     //To join a room
-    public void CreateRoom()
+    public void CreateRoom(byte maxPlayers)
     {
-        PhotonNetwork.CreateRoom("MyRoom");
+        RoomOptions roomOptions = new RoomOptions
+        {
+            MaxPlayers = maxPlayers,
+        };
+
+        if (PhotonNetwork.CurrentLobby.Name == LobbyDefultName)
+        {
+            PhotonNetwork.CreateRoom("Room 1", roomOptions, null);
+        }
+
+        else if (PhotonNetwork.CurrentLobby.Name == LobbySecondName)
+        {
+            PhotonNetwork.CreateRoom("Room 2", roomOptions, null);
+        }
     }
 
     public override void OnCreatedRoom()
@@ -128,6 +147,11 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Debug.Log("We successfully joined the room " + PhotonNetwork.CurrentRoom);
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        base.OnCreateRoomFailed(returnCode, message);
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
