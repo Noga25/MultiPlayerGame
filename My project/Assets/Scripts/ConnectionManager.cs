@@ -14,6 +14,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private TMP_InputField LobbyWanted;
     [SerializeField] private TextMeshProUGUI debugPhoton;
+    [SerializeField] private TextMeshProUGUI RoomInfo;
 
     private const string LobbyDefultName = "Our First Lobby";
     private const string LobbySecondName = "Our Second Lobby";
@@ -136,6 +137,13 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnCreatedRoom();
         Debug.Log("Room created successfully!");
+
+        Room room = PhotonNetwork.CurrentRoom;
+
+        if (RoomInfo != null && PhotonNetwork.CurrentRoom != null)
+        {
+            RoomInfo.text = $"Room: {room.Name} - Players: {room.PlayerCount.ToString() + " / " + room.MaxPlayers.ToString()}";
+        }
     }
 
     public void JoinRandomRoom()
