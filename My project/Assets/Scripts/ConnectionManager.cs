@@ -114,7 +114,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
 
     //To join a room
-    public void CreateRoom(byte maxPlayers)
+    public void CreateAndJoinRoom(int maxPlayers)
     {
         RoomOptions roomOptions = new RoomOptions
         {
