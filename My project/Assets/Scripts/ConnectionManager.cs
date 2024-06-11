@@ -85,14 +85,14 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
     public void ActiveRooms()
     {
-        if (LobbySecondName == LobbyWanted.text)
+        if (PhotonNetwork.CurrentLobby.Name == LobbySecondName)
         {
             for (int i = 1; i < ButtonsMainMenu.Length; i++)
             {
                 ButtonsMainMenu[i].enabled = true;
                 ButtonsMainMenu[0].enabled = false;
 
-                if (i != 2 && i != 5 && i < ButtonsMainMenu.Length)
+                if (i != 2 && i != 5 && i != 4 && i < ButtonsMainMenu.Length)
                 {
                     ButtonsMainMenu[i].gameObject.SetActive(true);
                 }
@@ -106,7 +106,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
                 ButtonsMainMenu[i].enabled = true;
                 ButtonsMainMenu[0].enabled = false;
 
-                if (i != 1 && i != 4 && i < ButtonsMainMenu.Length)
+                if (i != 1 && i != 4 && i != 5 && i < ButtonsMainMenu.Length)
                 {
                     ButtonsMainMenu[i].gameObject.SetActive(true);
                 }
@@ -124,26 +124,57 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.CurrentLobby.Name == LobbyDefultName)
         {
-            PhotonNetwork.CreateRoom("Room 1", roomOptions, null);
+            if (PhotonNetwork.GetCustomRoomList(TypedLobby.Default, LobbyDefultName) == false)
+            {
+                PhotonNetwork.CreateRoom("Room 1", roomOptions, null);
+            }
+
+            else
+            {
+                PhotonNetwork.JoinRoom("Room 1");
+            }
         }
 
         else if (PhotonNetwork.CurrentLobby.Name == LobbySecondName)
         {
-            PhotonNetwork.CreateRoom("Room 2", roomOptions, null);
+            if (PhotonNetwork.GetCustomRoomList(TypedLobby.Default, LobbySecondName) == false)
+            {
+                PhotonNetwork.CreateRoom("Room 2", roomOptions, null);
+            }
+
+            else
+            {
+                PhotonNetwork.JoinRoom("Room 2");
+            }
+        }
+    }
+
+    public void DeActivateButtons()
+    {
+        for(int i = 0; i < ButtonsMainMenu.Length; i++) 
+        {
+            if (ButtonsMainMenu[i].tag == "Rooms")
+            {
+                ButtonsMainMenu[i].gameObject.SetActive(false);
+            }
+
+            if (PhotonNetwork.CurrentLobby.Name == LobbySecondName)
+            {
+                ButtonsMainMenu[4].gameObject.SetActive(true);
+            }
+
+            else if(PhotonNetwork.CurrentLobby.Name == LobbyDefultName)
+            {
+                ButtonsMainMenu[5].gameObject.SetActive(true);
+            }
         }
     }
 
     public override void OnCreatedRoom()
     {
         base.OnCreatedRoom();
+
         Debug.Log("Room created successfully!");
-
-        Room room = PhotonNetwork.CurrentRoom;
-
-        if (RoomInfo != null && PhotonNetwork.CurrentRoom != null)
-        {
-            RoomInfo.text = $"Room: {room.Name} - Players: {room.PlayerCount.ToString() + " / " + room.MaxPlayers.ToString()}";
-        }
     }
 
     public void JoinRandomRoom()
@@ -155,6 +186,14 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Debug.Log("We successfully joined the room " + PhotonNetwork.CurrentRoom);
+
+        Room room = PhotonNetwork.CurrentRoom;
+        if (RoomInfo != null && PhotonNetwork.CurrentRoom != null)
+        {
+            RoomInfo.text = $"Room: {room.Name} - Players: {room.PlayerCount + " / " + room.MaxPlayers}";
+        }
+
+        DeActivateButtons();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -168,7 +207,37 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         foreach (RoomInfo roomInfo in roomList)
         {
             Debug.Log(roomInfo.Name);
+            Debug.Log(roomInfo.PlayerCount);
         }
+    }
+
+    //Leave Room
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+
+        if (PhotonNetwork.CurrentLobby.Name == LobbySecondName)
+        {
+            ButtonsMainMenu[4].gameObject.SetActive(false);
+        }
+
+        else if (PhotonNetwork.CurrentLobby.Name == LobbyDefultName)
+        {
+            ButtonsMainMenu[5].gameObject.SetActive(false);
+
+        }
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+
+        if (RoomInfo != null && PhotonNetwork.CurrentRoom == null)
+        {
+            RoomInfo.text = "Left Room";
+        }
+
+        ActiveRooms();
     }
 
     public void Update()
