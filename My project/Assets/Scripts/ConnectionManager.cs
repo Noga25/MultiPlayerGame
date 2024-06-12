@@ -121,32 +121,24 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         {
             MaxPlayers = maxPlayers,
         };
+        string roomName;
 
         if (PhotonNetwork.CurrentLobby.Name == LobbyDefultName)
         {
-            if (PhotonNetwork.GetCustomRoomList(TypedLobby.Default, LobbyDefultName) == false)
-            {
-                PhotonNetwork.CreateRoom("Room 1", roomOptions, null);
-            }
-
-            else
-            {
-                PhotonNetwork.JoinRoom("Room 1");
-            }
+            roomName = "Room 1";
         }
-
         else if (PhotonNetwork.CurrentLobby.Name == LobbySecondName)
         {
-            if (PhotonNetwork.GetCustomRoomList(TypedLobby.Default, LobbySecondName) == false)
-            {
-                PhotonNetwork.CreateRoom("Room 2", roomOptions, null);
-            }
-
-            else
-            {
-                PhotonNetwork.JoinRoom("Room 2");
-            }
+            roomName = "Room 2";
         }
+        else
+        {
+            // Handle the case where the lobby name is neither the default nor the second name
+            Debug.LogError("Unexpected lobby name: " + PhotonNetwork.CurrentLobby.Name);
+            return;
+        }
+
+        PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
     }
 
     public void DeActivateButtons()
