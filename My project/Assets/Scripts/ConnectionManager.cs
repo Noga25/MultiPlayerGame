@@ -232,6 +232,28 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         ActiveRooms();
     }
 
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+
+        Room room = PhotonNetwork.CurrentRoom;
+        if (RoomInfo != null && PhotonNetwork.CurrentRoom != null)
+        {
+            RoomInfo.text = $"Room: {room.Name} - Players: {room.PlayerCount + " / " + room.MaxPlayers}";
+        }
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+
+        Room room = PhotonNetwork.CurrentRoom;
+        if (RoomInfo != null && PhotonNetwork.CurrentRoom != null)
+        {
+            RoomInfo.text = $"Room: {room.Name} - Players: {room.PlayerCount + " / " + room.MaxPlayers}";
+        }
+    }
+
     public void Update()
     {
         debugPhoton.text = PhotonNetwork.NetworkClientState.ToString();
