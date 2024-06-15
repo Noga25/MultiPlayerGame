@@ -133,7 +133,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            // Handle the case where the lobby name is neither the default nor the second name
             Debug.LogError("Unexpected lobby name: " + PhotonNetwork.CurrentLobby.Name);
             return;
         }
