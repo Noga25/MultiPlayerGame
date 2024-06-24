@@ -28,6 +28,15 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             if (i != 0 && i < ButtonsMainMenu.Length)
             {
                 ButtonsMainMenu[i].gameObject.SetActive(false);
+
+
+            }
+            if(i==6)
+            {
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    ButtonsMainMenu[i].gameObject.SetActive(false);
+                }
             }
         }
     }
@@ -158,6 +167,13 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             {
                 ButtonsMainMenu[5].gameObject.SetActive(true);
             }
+            if (i == 6)
+            {
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    ButtonsMainMenu[i].gameObject.SetActive(true);
+                }
+            }
         }
     }
 
@@ -252,6 +268,14 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             RoomInfo.text = $"Room: {room.Name} - Players: {room.PlayerCount + " / " + room.MaxPlayers}";
         }
     }
+    public void StartGame()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("CurrentMainGameScene");
+        }
+    }
+
 
     public void Update()
     {
